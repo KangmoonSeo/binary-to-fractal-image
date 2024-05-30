@@ -1,8 +1,9 @@
+from typing import Union
 from PIL import Image
 
 
 def create_fractal_image(
-    input_data: bytes | int | str, width: int = 800, height: int = 800
+    input_data: Union[bytes, int, str], width: int = 800, height: int = 800
 ):
     """
     Create a fractal image based on input data and save it to a file.

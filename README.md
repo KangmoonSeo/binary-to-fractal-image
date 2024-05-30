@@ -1,2 +1,3 @@
-# fractal-image-generator
-Express your bitstream as a fractal image
+# binary-to-fractal-image
+
+Express your bit stream as a fractal image

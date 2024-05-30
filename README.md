@@ -1,6 +1,10 @@
 # binary-to-fractal-image
 
-Express your bit-stream as a **fractal image**
+- Express your bit-stream as a **fractal image**
+- use Pillow Library
+  ```bash
+  pip install Pillow
+  ```
 
 ## Fancy examples 😊
 

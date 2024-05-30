@@ -2,20 +2,47 @@ from PIL import Image
 
 
 def create_fractal_image(
-    input_data: bytes | int | str, filename: str, width: int = 800, height: int = 800
+    input_data: bytes | int | str, width: int = 800, height: int = 800
 ):
+    """
+    Create a fractal image based on input data and save it to a file.
+
+    Parameters
+    ----------
+
+    input_data : bytes or int or str
+        Data used to generate fractal parameters.
+        Can be bytes, an integer, or a bit-string (str).
+    width : int
+        Width of the image in pixels (default is 800).
+    height : int
+        Height of the image in pixels (default is 800).
+
+
+    Returns
+    -------
+    image : :py:class:`~PIL.Image.Image`
+        A fractal image
+    """
+
     if isinstance(input_data, bytes):  # bytes
+        input_data = input_data[:48]
         bits = "".join(format(byte, "08b") for byte in input_data)
 
+        if len(bits) < 48:
+            raise ValueError("length of bits must be up to 48.")
+
     elif isinstance(input_data, int):  # bit
-        bits = bin(input_data)
+        bits = format(input_data, "048b")
 
     elif isinstance(input_data, str):  # bit-string
-        bits = input_data
+        bits = input_data[:48]
+
+        if len(bits) < 48:
+            raise ValueError("length of bits must be up to 48.")
 
     else:
-
-        raise TypeError("input_data must be in [ bytes, int, bit-string str ]")
+        raise TypeError("input_data must be in [ bytes, int, str(bit-string) ].")
 
     # set RGB color
     r = int(bits[:8], 2) % 256
@@ -28,7 +55,7 @@ def create_fractal_image(
     power = int(bits[40:48], 2) / 16.0 + 1.0
 
     # set image size
-    image = Image.new("RGB", (width, height))
+    fractal_image = Image.new("RGB", (width, height))
 
     # generate fractal art
     for x in range(width):
@@ -45,21 +72,22 @@ def create_fractal_image(
                     break
 
             color = (r * i % 256, g * i % 256, b * i % 256)
-            image.putpixel((x, y), color)
+            fractal_image.putpixel((x, y), color)
 
-    # save image
-    image.save(filename)
+    return fractal_image
 
-    print(f"image created: {filename}")
-
-
-import random
 
 if __name__ == "__main__":
-    input_data = random.getrandbits(48)
-    filename = "image.png"
 
-    create_fractal_image(
-        input_data=input_data,
-        filename=filename,
-    )
+    import random
+    import os
+
+    int_stream_data = random.getrandbits(48)
+    byte_stream_data = os.urandom(6)
+
+    image = create_fractal_image(input_data=int_stream_data)
+
+    # save image
+    image.save("image.png")
+
+    print("fractal image created")

@@ -8,8 +8,14 @@
 
 ## Fancy examples 😊
 
-![Result 1](documents/images/result-1.png)
+<p align="center" width="100%">
+    <img src="docs/images/result-1.png" alt="result-1" style="width: 360px; height:360px; display: block; margin: auto;">
+</p>
 
-![Result 2](documents/images/result-2.png)
+<p align="center" width="100%">
+    <img src="docs/images/result-2.png" alt="result-2" style="width: 360px; height:360px; display: block; margin: auto;">
+</p>
 
-![Result 3](documents/images/result-3.png)
+<p align="center" width="100%">
+    <img src="docs/images/result-3.png" alt="result-3" style="width: 360px; height:360px; display: block; margin: auto;">
+</p>
